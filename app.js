@@ -1,7 +1,7 @@
 (function () {
   'use strict';
   var $ = function (id) { return document.getElementById(id); };
-  var src = $('src'), out = $('out'), msg = $('msg'), mic = $('mic'), speak = $('speak');
+  var src = $('src'), out = $('out'), pron = $('pron'), msg = $('msg'), mic = $('mic'), speak = $('speak');
   var root = document.documentElement;
   function setMsg(t) { msg.textContent = t || ''; }
 
@@ -24,12 +24,12 @@
   var cache = new Map(), ctrl = null, timer = null;
   function show(t) {
     var d = document.createElement('textarea'); d.innerHTML = t;
-    out.textContent = d.value; setMsg('');
+    out.textContent = d.value; pron.textContent = window.phonetic ? window.phonetic(d.value) : ''; setMsg('');
   }
   function translate(text) {
     text = text.trim();
     if (ctrl) ctrl.abort();
-    if (!text) { out.textContent = ''; setMsg(''); return; }
+    if (!text) { out.textContent = ''; pron.textContent = ''; setMsg(''); return; }
     if (cache.has(text)) { show(cache.get(text)); return; }
     ctrl = new AbortController();
     setMsg('Translating…');

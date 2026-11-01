@@ -9,6 +9,8 @@ h1{font-size:1.4rem;margin:0;font-weight:650}
 label{display:block;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);margin-bottom:6px}
 textarea,.out{width:100%;min-height:110px;font:inherit;font-size:1.15rem;color:var(--fg);background:transparent;border:0;outline:0;resize:vertical;padding:0;white-space:pre-wrap;word-wrap:break-word}
 .out:empty::before{content:"Translation appears here";color:var(--mut)}
+.pron{margin-top:8px;color:var(--mut);font-size:.95rem;font-style:italic;word-wrap:break-word}
+.pron:empty{display:none}
 .row{display:flex;gap:10px;margin-top:12px}
 button{font:inherit;min-height:44px;padding:0 18px;border-radius:12px;border:1px solid var(--ac);background:var(--ac);color:var(--acfg);cursor:pointer}
 button.ghost,#theme{background:transparent;color:var(--fg);border-color:var(--bd)}
