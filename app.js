@@ -107,12 +107,14 @@
 
   // New-version detection: compare page's build stamp to deployed version.json
   var build = (document.querySelector('meta[name=build]') || {}).content;
-  $('reload').onclick = function () { location.reload(); };
+  var latest = '';
+  // New ?v= URL bypasses the HTTP-cached HTML; the HTML then references versioned assets
+  $('reload').onclick = function () { location.replace(location.pathname + '?v=' + (latest || Date.now())); };
   function check() {
     if (!build || build.indexOf('__') === 0) return;
     fetch('version.json?t=' + Date.now(), { cache: 'no-store' })
       .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (j) { if (j && j.build && j.build !== build) $('update').hidden = false; })
+      .then(function (j) { if (j && j.build && j.build !== build) { latest = j.build; $('update').hidden = false; } })
       .catch(function () {});
   }
   setInterval(check, 5 * 60 * 1000);
