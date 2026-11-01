@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>English → Spanish Translator</title>
+<meta name="description" content="Fast English to Spanish translator with microphone input and spoken Spanish output.">
+<meta name="build" content="__BUILD__">
+<meta name="theme-color" content="#ffffff">
+<script>
+(function(){try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}catch(e){document.documentElement.dataset.theme='light';}})();
+</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="update" class="update" hidden role="status">
+  <span>A new version is available.</span>
+  <button id="reload" type="button">Refresh</button>
+</div>
+<main>
+  <header>
+    <h1>English <span aria-hidden="true">→</span> Español</h1>
+    <button id="theme" type="button" aria-label="Toggle theme"></button>
+  </header>
+  <section class="card">
+    <label for="src">English</label>
+    <textarea id="src" rows="4" placeholder="Type or tap the mic and speak…" autocomplete="off"></textarea>
+    <div class="row">
+      <button id="mic" type="button" aria-pressed="false">🎤 Speak</button>
+      <button id="clear" type="button" class="ghost">Clear</button>
+    </div>
+  </section>
+  <section class="card">
+    <label>Español</label>
+    <div id="out" class="out" aria-live="polite"></div>
+    <div class="row">
+      <button id="speak" type="button">🔊 Listen</button>
+      <button id="copy" type="button" class="ghost">Copy</button>
+    </div>
+  </section>
+  <p id="msg" class="msg" role="status"></p>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

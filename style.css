@@ -1,0 +1,25 @@
+:root{--bg:#f6f7f9;--card:#fff;--fg:#14171c;--mut:#6b7280;--bd:#e3e6ea;--ac:#c8102e;--acfg:#fff}
+:root[data-theme=dark]{--bg:#0e1116;--card:#171b22;--fg:#eef0f3;--mut:#9aa3af;--bd:#272d37;--ac:#ff4d63;--acfg:#14171c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+main{max-width:640px;margin:0 auto;padding:16px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+h1{font-size:1.4rem;margin:0;font-weight:650}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:16px;margin-bottom:14px}
+label{display:block;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);margin-bottom:6px}
+textarea,.out{width:100%;min-height:110px;font:inherit;font-size:1.15rem;color:var(--fg);background:transparent;border:0;outline:0;resize:vertical;padding:0;white-space:pre-wrap;word-wrap:break-word}
+.out:empty::before{content:"Translation appears here";color:var(--mut)}
+.row{display:flex;gap:10px;margin-top:12px}
+button{font:inherit;min-height:44px;padding:0 18px;border-radius:12px;border:1px solid var(--ac);background:var(--ac);color:var(--acfg);cursor:pointer}
+button.ghost,#theme{background:transparent;color:var(--fg);border-color:var(--bd)}
+#theme{width:44px;padding:0;font-size:1.2rem}
+button[aria-pressed=true]{animation:pulse 1.2s infinite}
+button:disabled{opacity:.45;cursor:not-allowed}
+button:focus-visible,textarea:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+@keyframes pulse{50%{opacity:.6}}
+.msg{color:var(--mut);font-size:.9rem;min-height:1.4em;text-align:center}
+.update{position:sticky;top:0;z-index:10;display:flex;gap:12px;justify-content:center;align-items:center;padding:8px 12px;background:var(--ac);color:var(--acfg)}
+.update[hidden]{display:none}
+.update button{min-height:32px;background:var(--acfg);color:var(--ac);border-color:var(--acfg)}
+@media(max-width:480px){.row button{flex:1}}
+@media(prefers-reduced-motion:reduce){button[aria-pressed=true]{animation:none}}
