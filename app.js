@@ -33,11 +33,21 @@
     if (cache.has(text)) { show(cache.get(text)); return; }
     ctrl = new AbortController();
     setMsg('Translating…');
-    fetch('https://api.mymemory.translated.net/get?langpair=en|es&q=' + encodeURIComponent(text), { signal: ctrl.signal })
+    var sig = { signal: ctrl.signal };
+    fetch('https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=es&dt=t&q=' + encodeURIComponent(text), sig)
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-      .then(function (j) {
-        var t = j && j.responseData && j.responseData.translatedText;
-        if (!t || (j.responseStatus && +j.responseStatus !== 200)) throw new Error('bad');
+      .then(function (j) { return j[0].map(function (p) { return p[0]; }).join(''); })
+      .catch(function (e) {
+        if (e.name === 'AbortError') throw e;
+        return fetch('https://api.mymemory.translated.net/get?langpair=en|es&q=' + encodeURIComponent(text), sig)
+          .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+          .then(function (j) {
+            var t = j && j.responseData && j.responseData.translatedText;
+            if (!t || (j.responseStatus && +j.responseStatus !== 200)) throw new Error('bad');
+            return t;
+          });
+      })
+      .then(function (t) {
         cache.set(text, t);
         if (cache.size > 100) cache.delete(cache.keys().next().value);
         show(t);
